@@ -78,7 +78,7 @@ function App() {
           current value between rolls.
         </p>
       </div>
-      <div className='dice-container'>{renderDice}</div>
+      {tenzies ? <h1>YOU WON!</h1> : <div className='dice-container'>{renderDice}</div>}
       <p className='roll-count'>Roll Count: {count}</p>
       <button onClick={rollDice}>{tenzies ? 'New Game' : 'Roll'}</button>
     </main>
