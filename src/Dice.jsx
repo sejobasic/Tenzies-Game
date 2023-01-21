@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Dice({ value }) {
+function Dice({ value, isHeld }) {
   return (
-    <div className='dice'>{value}</div>
+    <div className={`dice ${isHeld ? 'held' : ''}`}>{value}</div>
   )
 }
 
