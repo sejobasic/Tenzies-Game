@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import Confetti from 'react-confetti'
 import './App.css'
 import Dice from './Dice'
 import { useEffect } from 'react'
@@ -7,6 +8,7 @@ import { useEffect } from 'react'
 function App() {
   const [dice, setDice] = useState(newDice())
   const [tenzies, setTenzies] = useState(false)
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld)
@@ -43,11 +45,18 @@ function App() {
   }
 
   function rollDice() {
-    setDice((prevDice) => {
-      return prevDice.map((die) => {
-        return die.isHeld ? die : generateNewDie()
+    if (!tenzies) {
+      setDice((prevDice) => {
+        return prevDice.map((die) => {
+          return die.isHeld ? die : generateNewDie()
+        })
       })
-    })
+      setCount(count + 1)
+    } else {
+      setTenzies(false)
+      setDice(newDice())
+      setCount(0)
+    }
   }
 
   const renderDice = dice.map((die) => (
@@ -61,6 +70,7 @@ function App() {
 
   return (
     <main className='main-container'>
+      {tenzies && <Confetti />}
       <div className='text-content'>
         <h1 className='title'>Tenzies</h1>
         <p className='instructions'>
@@ -69,7 +79,8 @@ function App() {
         </p>
       </div>
       <div className='dice-container'>{renderDice}</div>
-      <button onClick={rollDice}>Roll</button>
+      <p className='roll-count'>Roll Count: {count}</p>
+      <button onClick={rollDice}>{tenzies ? 'New Game' : 'Roll'}</button>
     </main>
   )
 }
