@@ -48,7 +48,7 @@ body {
 .dice {
   border-radius: 10px;
   text-align: center;
-  padding: 0.7em;
+  padding: 0.7em 1em;
   font-size: 2rem;
   font-weight: 800;
   background-color: #fff;
