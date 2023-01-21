@@ -1,7 +1,24 @@
+import { useState } from 'react'
 import './App.css'
 import Dice from './Dice'
 
 function App() {
+  const [dice, setDice] = useState(newDice())
+
+  function newDice() {
+    const newDice = []
+    for (let i = 0; i < 10; i++) {
+      newDice.push(Math.ceil(Math.random() * 6))
+    }
+    return newDice
+  }
+
+  const renderDice = dice.map((die) => <Dice value={die} />)
+
+  function rollDice() {
+    setDice(newDice())
+  }
+
   return (
     <main className='main-container'>
       <div className='text-content'>
@@ -11,19 +28,8 @@ function App() {
           current value between rolls.
         </p>
       </div>
-      <div className="dice-container">
-        <Dice value={1} />
-        <Dice value={2} />
-        <Dice value={3} />
-        <Dice value={4} />
-        <Dice value={5} />
-        <Dice value={6} />
-        <Dice value={7} />
-        <Dice value={8} />
-        <Dice value={9} />
-        <Dice value={10} />
-      </div>
-      <button>Roll</button>
+      <div className='dice-container'>{renderDice}</div>
+      <button onClick={rollDice}>Roll</button>
     </main>
   )
 }
